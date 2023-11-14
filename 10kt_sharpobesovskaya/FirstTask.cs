@@ -15,7 +15,10 @@ interface IRepository<T> where T : IEntity
 class ProductRepository : IRepository<Product>
 {
     List<Product> products;
-
+    public ProductRepository()
+    {
+        products = new List<Product>(); // Инициализируем список продуктов
+    }
     public void Add(Product item)
     {
         products.Add(item);
@@ -29,7 +32,7 @@ class ProductRepository : IRepository<Product>
     public Product FindById(int id)
     {
         int index = products.FindIndex(p => p.Id == id);
-        if(index == -1)
+        if (index == -1)
         {
             return products[index];
         }
@@ -42,7 +45,7 @@ class ProductRepository : IRepository<Product>
 
     public IEnumerable<Product> GetAll()
     {
-        foreach(var prod in products)
+        foreach (var prod in products)
         {
             Console.WriteLine(prod);
             yield return prod;
@@ -51,8 +54,11 @@ class ProductRepository : IRepository<Product>
 }
 class CustomerRepository : IRepository<Customer>
 {
-    List <Customer> customers;
-
+    List<Customer> customers;
+    public CustomerRepository()
+    {
+        customers = new List<Customer>();
+    }
     public void Add(Customer item)
     {
         customers.Add(item);
@@ -102,7 +108,7 @@ class Product : IEntity
 }
 class Customer : IEntity
 {
-    public int Id { get ; set; }
+    public int Id { get; set; }
     string Name { get; set; }
     int Price { get; set; }
     string Address { get; set; }
@@ -114,7 +120,7 @@ class Customer : IEntity
         Address = address;
     }
 }
-class Program
+class FirstTask
 {
     static void Main(string[] args)
     {
@@ -123,7 +129,7 @@ class Program
         Product product = new Product(1, "Alfred", 30000, "Logovo BetMan'a stavochnika");
         Product product1 = new Product(2, "Alfredddddd", 3045000, "Lovo BitMan'a stavochnika");
         productRepository.Add(product);
-        Customer customer = new Customer(4,"Batmen", 10000000, "Скучное каноничное логово");
+        Customer customer = new Customer(4, "Batmen", 10000000, "Скучное каноничное логово");
         Customer customer2 = new Customer(3, "Battonmen", 10000000, "Скучное ну рил рил рил каноничное логово");
         customerpository.Add(customer);
         productRepository.Add(product1);
